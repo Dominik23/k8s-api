@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  selector: 
+    matchLabels:
+      app: api
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: api
+    spec: 
+      containers:
+      - name: angular
+        image: dhartl231198/k3s-api
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5200
+        resources:
+          limits:
+            cpu: 500m
+          requests:
+            cpu: 200m
+---
+kind: Service
+apiVersion: v1
+metadata:
+ name: api-service
+spec:
+ selector:
+   app: api
+ ports:
+ - protocol: TCP
+   port: 5200
+   nodePort: 30081
+ type: NodePort
