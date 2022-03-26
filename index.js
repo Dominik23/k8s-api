@@ -1,19 +1,49 @@
 const express = require('express');
 const k8s = require('@kubernetes/client-node');
 const app = express();
+const cors = require('cors')
 app.use(express.json());
-
+app.use(cors())
+const axios = require('axios')
 
 const kc = new k8s.KubeConfig();
 kc.loadFromDefault();
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
-app.get('/test', (req, res ) => {
-    this.shouldIncrease = true;
-    let counter = 0;
-    while(this.shouldIncrease) {
-      counter = counter * counter + 2500;
-    }
-})
+app.get('/start', (req, res) => {
+  this.shouldIncrease = true;
+  let counter = 0;
+  let loopCounter = 0;
+  res.status(200).end("OK");
+  while (loopCounter < 99999999) {
+    loopCounter++;
+    counter = counter + 123;
+    counter = counter * Math.sqrt(counter);
+  }
+});
+
+app.get('/pods', async (req, res) => {
+  k8sApi.listNamespacedPod('default').then((result) => {
+    return res.status(200).send(JSON.stringify(result.body));
+  });
+});
+
+createLoad = function () {
+
+  var config = {
+    method: 'get',
+    url: 'localhost:30081/test',
+    headers: {}
+  };
+
+  axios(config)
+    .then(function (response) {
+      console.log(JSON.stringify(response.data));
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
+}
 app.listen(5200, () => console.log(`Backend started successfully on 5200`))
 module.exports = app;

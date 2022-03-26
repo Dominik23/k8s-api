@@ -1,0 +1,33 @@
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: api-deployment
+  minReplicas: 1
+  maxReplicas: 5
+  behavior:
+    scaleDown: 
+      policies: 
+      - type: Pods 
+        value: 4 
+        periodSeconds: 1 
+      selectPolicy: Max 
+      stabilizationWindowSeconds: 0 
+    scaleUp: 
+      policies:
+      - type: Pods
+        value: 5 
+        periodSeconds: 20
+      selectPolicy: Max
+      stabilizationWindowSeconds: 0
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 30
