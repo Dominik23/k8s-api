@@ -32,7 +32,7 @@ jobs:
           push: true
           tags: dhartl231198/k3s-dashboard:latest
   local-runner:
-    runs-on: api-runner
+    runs-on: self-hosted
     steps:
       -
         name: Restart Deployment
