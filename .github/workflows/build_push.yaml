@@ -12,6 +12,5 @@ jobs:
     steps:
       -
         name: Restart deployment
-        run: |
-          kubectl delete deployment api-deployment
+        run: kubectl delete deployment api-deployment
   
