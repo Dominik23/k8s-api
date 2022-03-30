@@ -45,7 +45,7 @@ spec:
     spec: 
       containers:
       - name: angular
-        image: dhartl231198/k3s-api
+        image: dhartl231198/k8s-api
         imagePullPolicy: Always
         ports:
         - containerPort: 5200
