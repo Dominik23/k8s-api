@@ -1,0 +1,12 @@
+﻿{
+  "repositoryName": "Dominik23/k8s-api",
+  "pipelineDirectory": "k8s-api",
+  "workspaceDirectory": "k8s-api/k8s-api",
+  "repositories": {
+    "Dominik23/k8s-api": {
+      "repositoryPath": "k8s-api/k8s-api",
+      "lastRunOn": "03/31/2022 10:25:28 +02:00"
+    }
+  },
+  "lastRunOn": "03/31/2022 10:25:28 +02:00"
+}
