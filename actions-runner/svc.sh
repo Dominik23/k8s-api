@@ -1,8 +1,8 @@
 #!/bin/bash
 
-SVC_NAME="actions.runner.Dominik23-k3s-api.api-runner"
+SVC_NAME="actions.runner.Dominik23-k8s-api.C02Z453ALVDL"
 SVC_NAME=${SVC_NAME// /_}
-SVC_DESCRIPTION="GitHub Actions Runner (Dominik23-k3s-api.api-runner)"
+SVC_DESCRIPTION="GitHub Actions Runner (Dominik23-k8s-api.C02Z453ALVDL)"
 
 user_id=`id -u`
 
@@ -63,7 +63,7 @@ function install()
     mkdir -p "${log_path}" || failed "failed to create ${log_path}"
 
     echo Creating ${PLIST_PATH}
-    sed "s/{{User}}/${SUDO_USER:-$USER}/g; s/{{SvcName}}/$SVC_NAME/g; s@{{RunnerRoot}}@${RUNNER_ROOT}@g; s@{{UserHome}}@$HOME@g;" "${TEMPLATE_PATH}" > "${TEMP_PATH}" || failed "failed to create replacement temp file"
+    sed "s/{{User}}/${USER:-$SUDO_USER}/g; s/{{SvcName}}/$SVC_NAME/g; s@{{RunnerRoot}}@${RUNNER_ROOT}@g; s@{{UserHome}}@$HOME@g;" "${TEMPLATE_PATH}" > "${TEMP_PATH}" || failed "failed to create replacement temp file"
     mv "${TEMP_PATH}" "${PLIST_PATH}" || failed "failed to copy plist"
 
     # Since we started with sudo, runsvc.sh will be owned by root. Change this to current login user.
