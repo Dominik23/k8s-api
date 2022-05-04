@@ -5,9 +5,9 @@ const cors = require('cors')
 app.use(express.json());
 app.use(cors())
 const axios = require('axios')
-
 const kc = new k8s.KubeConfig();
 kc.loadFromDefault();
+
 const k8sApi = kc.makeApiClient(k8s.CoreV1Api);
 
 app.get('/pods', async (req, res) => {
