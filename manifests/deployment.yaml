@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: k8s-role
+  name: k8s-api
 rules:
   - apiGroups: ["*"]
     resources:
@@ -12,10 +12,10 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: k8s-role-binding
+  name: k8s-api
 roleRef:
   kind: Role
-  name: k8s-role
+  name: k8s-api
   apiGroup: rbac.authorization.k8s.io
 subjects:
   - kind: ServiceAccount
@@ -25,19 +25,19 @@ subjects:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: api-deployment
+  name: k8s-api
 spec:
   selector: 
     matchLabels:
-      app: api
+      app: k8s-api
   replicas: 1
   template:
     metadata:
       labels:
-        app: api
+        app: k8s-api
     spec: 
       containers:
-      - name: angular
+      - name: k8s-api
         image: dhartl231198/k8s-api
         imagePullPolicy: Always
         ports:
@@ -53,10 +53,10 @@ spec:
 kind: Service
 apiVersion: v1
 metadata:
- name: api-service
+ name: k8s-api
 spec:
  selector:
-   app: api
+   app: k8s-api
  ports:
  - protocol: TCP
    port: 5200
